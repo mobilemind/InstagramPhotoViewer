@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+// { "data" => [x] => "user" => "username" }
+// { "data" => [x] => "caption" => "text" }
+// { "data" => [x] => "images" => "standard_resolution" => "url" }
+// { "data" => [x] => "images" => "standard_resolution" => "height" }
+// { "data" => [x] => "likes" => "count" }
 
 public class InstagramPhotoViewer extends Activity {
 

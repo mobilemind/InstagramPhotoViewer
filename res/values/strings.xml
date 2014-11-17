@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Instagram Photo Viewer</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="popular_photos_caption">Popular Photos</string>
     <string name="action_settings">Settings</string>
 
 </resources>
