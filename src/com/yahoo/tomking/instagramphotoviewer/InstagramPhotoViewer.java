@@ -1,26 +1,62 @@
 package com.yahoo.tomking.instagramphotoviewer;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-// { "data" => [x] => "user" => "username" }
-// { "data" => [x] => "caption" => "text" }
-// { "data" => [x] => "images" => "standard_resolution" => "url" }
-// { "data" => [x] => "images" => "standard_resolution" => "height" }
-// { "data" => [x] => "likes" => "count" }
 
 public class InstagramPhotoViewer extends Activity {
+	public static final String kIG_CLIENT_ID = "761087dc7aea4f0cb7a09f60f352fb8f";
+	// https://api.instagram.com/v1/media/popular?client_id=kIG_CLIENT_ID
+	// { "data" => [x] => "user" => "username" }
+	// { "data" => [x] => "caption" => "text" }
+	// { "data" => [x] => "images" => "standard_resolution" => "url" }
+	// { "data" => [x] => "images" => "standard_resolution" => "height" }
+	// { "data" => [x] => "likes" => "count" }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instagram_photo_viewer);
+        fetchPopularPhotos();
     }
 
 
-    @Override
+    private void fetchPopularPhotos() {
+		// https://api.instagram.com/v1/media/popular?client_id=kIG_CLIENT_ID 
+    	// setup endpoint
+    	String popularPhotosUrl = "https://api.instagram.com/v1/media/popular?client_id=" + kIG_CLIENT_ID ;
+    	
+    	// create net client & send request
+    	AsyncHttpClient client = new AsyncHttpClient();
+    	client.get(popularPhotosUrl, new JsonHttpResponseHandler() {
+    		// define callbacks
+    		public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
+    			//{ "data" => [x] => "images" => "standard_resolution" => "url" }
+    			// Log.i("INFO", response.toString());
+    		};
+    		@Override
+    		public void onFailure(int statusCode, Header[] headers,
+    				Throwable throwable, JSONObject errorResponse) {
+    			// TODO Auto-generated method stub
+    			super.onFailure(statusCode, headers, throwable, errorResponse);
+    		}
+    	});
+    	// send net request
+    	// process response
+		
+	}
+
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.instagram_photo_viewer, menu);
