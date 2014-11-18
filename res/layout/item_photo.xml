@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_launcher" />
+    
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgPhoto"
+        android:layout_below="@+id/imgPhoto"
+        android:layout_marginTop="22dp"
+        android:text="@string/caption_default_text"
+        android:maxLines="3"
+        android:ellipsize="middle" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvCaption"
+        android:layout_below="@+id/tvCaption"
+        android:text="@string/default_username" />
+
+    <TextView
+        android:id="@+id/tvLikesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUsername"
+        android:layout_below="@+id/tvUsername"
+        android:text="@string/default_likes_label"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/etLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvCaption"
+        android:layout_alignTop="@+id/tvLikesLabel"
+        android:layout_toRightOf="@+id/tvLikesLabel"
+        android:ems="10"
+        android:inputType="number"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

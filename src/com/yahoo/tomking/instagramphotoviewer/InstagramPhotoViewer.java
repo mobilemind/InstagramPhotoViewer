@@ -15,11 +15,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class InstagramPhotoViewer extends Activity {
 	public static final String kIG_CLIENT_ID = "761087dc7aea4f0cb7a09f60f352fb8f";
 	private ArrayList<InstagramPhoto> photos;
+	private InstagramPhotosAdapter aPopularPhotos; 
 	// https://api.instagram.com/v1/media/popular?client_id=kIG_CLIENT_ID
 	// { "data" => [x] => "user" => "username" }
 	// { "data" => [x] => "caption" => "text" }
@@ -41,30 +43,40 @@ public class InstagramPhotoViewer extends Activity {
     	String popularPhotosUrl = "https://api.instagram.com/v1/media/popular?client_id=" + kIG_CLIENT_ID;
     	// init array
     	photos = new ArrayList<InstagramPhoto>();
+    	// init adapter
+    	aPopularPhotos = new InstagramPhotosAdapter(this, photos);
+    	ListView lvPhotos = (ListView) findViewById(R.id.lvPopularPhotos);
+    	lvPhotos.setAdapter(aPopularPhotos);
     	
     	// create net client & send request
     	AsyncHttpClient client = new AsyncHttpClient();
     	client.get(popularPhotosUrl, new JsonHttpResponseHandler() {
     		// define callbacks
     		public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
-    			//{ "data" => [x] => "images" => "standard_resolution" => "url" }
-    			// Log.i("INFO", response.toString());
     			JSONArray popularPhotosJSON = null;
     			try {
     				popularPhotosJSON = response.getJSONArray("data");
+    				photos.clear();
 					for (int i = 0; i < popularPhotosJSON.length(); i++) {
 						JSONObject photoJSON = popularPhotosJSON.getJSONObject(i);
 						InstagramPhoto photo = new InstagramPhoto();
-						photo.username = photoJSON.getJSONObject("user").getString("username");
-						photo.caption = photoJSON.getJSONObject("caption").getString("text");
+						photo.username = "";
+						if (photoJSON.getJSONObject("user") != null) { 
+							photo.username = photoJSON.getJSONObject("user").getString("username");
+						}
+						photo.caption = "";
+						if (photoJSON.getJSONObject("caption") != null) {
+							photo.caption = photoJSON.getJSONObject("caption").getString("text");
+						}
 						photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
 						photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
 						photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
 						photos.add(photo);
-						Log.i("INFO", "processing photo " + i + "(" + photo.caption + ")");
+						Log.i("DEBUG", "processing photo " + i + "(" + photo.caption + ")");
 					}
+					aPopularPhotos.notifyDataSetChanged();
 				} catch (JSONException e) {
-					// e.printStackTrace();
+					e.printStackTrace();
 				}
     			
     		};

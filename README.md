@@ -4,15 +4,17 @@ Instagram Photo Viewer
 ## Overview
 A read-only photo viewer for Instagram which allows a user to check out popular photos.
 
-Time Spent: x.x hours
+Time Spent: 2.5 hours
 
 ## User Stories
 
 ### Mandatory
-1. [ ] User can scroll through current popular photos from Instagram
-2. [ ] For each photo displayed, user can see the following details:
-    * [ ] Graphic, Caption, Username
-    * [ ] _Optional_ Relative timestamp, like count, user profile image
+1. [X] User can scroll through current popular photos from Instagram
+2. [X] For each photo displayed, user can see the following details:
+    * [x] Graphic, Caption, Username
+    * [ ] _Optional_ Relative timestamp
+    * [x] _Optional_ Like count
+    * [ ] _Optional_ User profile image
 
 ### Optional
 3. [ ] Add pull-to-refresh for popular stream with SwipeRefreshLayout
