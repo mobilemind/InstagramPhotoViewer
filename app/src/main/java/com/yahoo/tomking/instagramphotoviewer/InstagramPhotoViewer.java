@@ -53,7 +53,7 @@ public class InstagramPhotoViewer extends Activity {
     	client.get(popularPhotosUrl, new JsonHttpResponseHandler() {
     		// define callbacks
     		public void onSuccess(int statusCode, org.apache.http.Header[] headers, org.json.JSONObject response) {
-    			JSONArray popularPhotosJSON = null;
+    			JSONArray popularPhotosJSON;
     			try {
     				popularPhotosJSON = response.getJSONArray("data");
     				photos.clear();
@@ -75,7 +75,8 @@ public class InstagramPhotoViewer extends Activity {
 					e.printStackTrace();
 				}
     			
-    		};
+    		}
+
     		@Override
     		public void onFailure(int statusCode, Header[] headers,
     				Throwable throwable, JSONObject errorResponse) {
