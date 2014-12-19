@@ -60,14 +60,10 @@ public class InstagramPhotoViewer extends Activity {
 					for (int i = 0; i < popularPhotosJSON.length(); i++) {
 						JSONObject photoJSON = popularPhotosJSON.getJSONObject(i);
 						InstagramPhoto photo = new InstagramPhoto();
-						photo.username = "";
-						if (photoJSON.getJSONObject("user") != null) { 
-							photo.username = photoJSON.getJSONObject("user").getString("username");
-						}
-						photo.caption = "";
-						if (photoJSON.getJSONObject("caption") != null) {
-							photo.caption = photoJSON.getJSONObject("caption").getString("text");
-						}
+						if (photoJSON.getJSONObject("user") == null) { photo.username = ""; }
+						else { photo.username = photoJSON.getJSONObject("user").getString("username"); }
+						if (photoJSON.getJSONObject("caption") == null) { photo.caption = ""; }
+						else { photo.caption = photoJSON.getJSONObject("caption").getString("text"); }
 						photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
 						photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
 						photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
@@ -106,9 +102,7 @@ public class InstagramPhotoViewer extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        if (id == R.id.action_settings) { return true; }
         return super.onOptionsItemSelected(item);
     }
 }
